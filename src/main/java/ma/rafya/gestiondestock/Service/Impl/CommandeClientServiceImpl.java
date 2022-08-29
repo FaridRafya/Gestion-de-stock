@@ -63,6 +63,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         if(!errorsArticle.isEmpty()){
             throw new InvalidEntityException("article est invalid",ErrorCode.ARTIICLE_NOT_FOUND,errorsArticle) ;
         }
+
         CommandeClient commandeClient=modelMapper.map(dto,CommandeClient.class) ;
         CommandeClient commandeClient1=commandeCLientRepo.save(commandeClient) ;
         return modelMapper.map(commandeClient1,CommandeClientDto.class);
@@ -91,9 +92,9 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     }
 
     @Override
-    public CommandeClientDto findAll() {
-        return (CommandeClientDto) commandeCLientRepo.findAll().stream()
-                .map(e->modelMapper.map(e,CommandeClientDto.class)).collect(Collectors.toList());
+    public List<CommandeClientDto> findAll() {
+        return  commandeCLientRepo.findAll().stream()
+                .map(CommandeClientDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

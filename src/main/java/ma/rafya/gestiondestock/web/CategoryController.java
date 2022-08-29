@@ -6,6 +6,8 @@ import ma.rafya.gestiondestock.web.api.CategoryApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class CategoryController implements CategoryApi {
 
@@ -33,8 +35,8 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public CategoryDto findall() {
-        return categoryService.findall();
+    public List<CategoryDto> findall() {
+        return  categoryService.findall();
     }
 
     @Override

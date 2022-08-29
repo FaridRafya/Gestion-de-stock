@@ -34,7 +34,7 @@ public class ArticleValidator {
         if (articleDto.getPrixUnitaireTtc() == null) {
             errors.add("veullez rensigner le prix unitaire Ttc   article ");
         }
-        if (articleDto.getCategoryDto() == null) {
+        if (articleDto.getCategory() == null) {
             errors.add("veullez rensigner la category  article ");
         }
 

@@ -2,6 +2,8 @@ package ma.rafya.gestiondestock.Service;
 
 import ma.rafya.gestiondestock.Dto.CategoryDto;
 
+import java.util.List;
+
 public interface CategoryService {
 
     CategoryDto save(CategoryDto categoryDto);
@@ -10,7 +12,7 @@ public interface CategoryService {
 
     CategoryDto findByCodeCategory(String code);
 
-    CategoryDto findall();
+    List<CategoryDto> findall();
 
     void delete(Long id);
 }

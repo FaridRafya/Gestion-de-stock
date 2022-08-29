@@ -4,7 +4,8 @@ import ma.rafya.gestiondestock.Dto.CommandeClientDto;
 import ma.rafya.gestiondestock.Service.CommandeClientService;
 import ma.rafya.gestiondestock.web.api.CommandeClientApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public class CommandeClientController implements CommandeClientApi {
 
@@ -32,7 +33,7 @@ public class CommandeClientController implements CommandeClientApi {
     }
 
     @Override
-    public CommandeClientDto findAll() {
+    public List<CommandeClientDto> findAll() {
         return commandeClientService.findAll();
     }
 

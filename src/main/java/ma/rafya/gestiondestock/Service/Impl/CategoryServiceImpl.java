@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+
 @Service
 
 public class CategoryServiceImpl implements CategoryService {
@@ -35,10 +37,11 @@ public class CategoryServiceImpl implements CategoryService {
         if(!errors.isEmpty()){
             throw new InvalidEntityException("category n'est pas valide", ErrorCode.CATEGORY_NOT_FOUND,errors);
         }
-
+/*
         Category category= modelMapper.map(categoryDto,Category.class) ;
          Category category1=       categoryRepository.save(category) ;
-        return modelMapper.map(category1,CategoryDto.class);
+        return modelMapper.map(category1,CategoryDto.class);*/
+        return CategoryDto.fromEntity(categoryRepository.save(CategoryDto.toEntity(categoryDto))) ;
     }
 
     @Override
@@ -46,8 +49,10 @@ public class CategoryServiceImpl implements CategoryService {
         if (id==null) return null ;
 
         Optional<Category> category =categoryRepository.findById(id) ;
-        return Optional.of(modelMapper.map(category,CategoryDto.class)).orElseThrow(()->
-                new EntityNotFoundException("category n'est pas trouvé")  ) ;
+     return Optional.of(CategoryDto.fromEntity(category.get())).
+             orElseThrow(()->  new EntityNotFoundException("aucun category avec ce id "+id));
+
+
     }
 
     @Override
@@ -55,16 +60,18 @@ public class CategoryServiceImpl implements CategoryService {
         if(!StringUtils.hasLength(code)){
             return  null ;
         }
-        Category category = categoryRepository.findByCodeCategory(code) ;
-
-        return modelMapper.map(category,CategoryDto.class);
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findByCodeCategory(code));
+        return Optional.of(CategoryDto.fromEntity(category.get())).
+                orElseThrow(()->  new EntityNotFoundException("aucun category avec ce id "+code));
     }
 
     @Override
-    public CategoryDto findall() {
+    public List<CategoryDto> findall() {
 
-        return (CategoryDto) categoryRepository.findAll().stream().map
-                (e->modelMapper.map(e,CategoryDto.class)).collect(Collectors.toList());
+
+        return  categoryRepository.findAll().stream().map
+               (CategoryDto::fromEntity).collect(Collectors.toList());
+
     }
 
     @Override

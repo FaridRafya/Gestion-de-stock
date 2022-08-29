@@ -1,6 +1,8 @@
 package ma.rafya.gestiondestock.Dto;
 import lombok.Builder;
 import lombok.Data;
+import ma.rafya.gestiondestock.entities.Client;
+import ma.rafya.gestiondestock.entities.Entreprise;
 
 
 import javax.persistence.Embedded;
@@ -21,4 +23,29 @@ public class EntrepriseDto {
     private String siteWeb ;
 
     private List<UtilisateurDto> utilisateurs ;
+
+
+    public static  EntrepriseDto fromEntity(Entreprise entreprise){
+        return EntrepriseDto.builder()
+                .id(entreprise.getId())
+                .nom(entreprise.getNom())
+                .adresse(entreprise.getAdresse())
+                .photo(entreprise.getPhoto())
+                .telephone(entreprise.getTelephone())
+                .email(entreprise.getEmail())
+                .siteWeb(entreprise.getSiteWeb())
+                .build() ;
+    }
+
+    public static  Entreprise toEntity(EntrepriseDto entreprise){
+        return Entreprise.builder()
+                .id(entreprise.getId())
+                .nom(entreprise.getNom())
+                .adresse(entreprise.getAdresse())
+                .photo(entreprise.getPhoto())
+                .telephone(entreprise.getTelephone())
+                .email(entreprise.getEmail())
+                .siteWeb(entreprise.getSiteWeb())
+                .build() ;
+    }
 }

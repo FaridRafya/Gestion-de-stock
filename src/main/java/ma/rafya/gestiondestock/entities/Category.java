@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor  @Entity
+@AllArgsConstructor  @Entity @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Category  implements Serializable {
 
 
@@ -21,11 +23,10 @@ public class Category  implements Serializable {
     private Long id;
 
     @CreatedDate
-    @JsonIgnore
     private Date createdDate;
 
     @LastModifiedDate
-    @JsonIgnore
+    @Column(nullable = false ,updatable = false)
     private Date lastModifiedDate;
 
     private String  codeCategory ;

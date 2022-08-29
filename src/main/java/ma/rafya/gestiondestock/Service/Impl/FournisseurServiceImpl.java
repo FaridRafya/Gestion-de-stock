@@ -32,9 +32,9 @@ public class FournisseurServiceImpl implements FournisseurService {
             throw new InvalidEntityException("Fournisseur n'est pas valid",
                     ErrorCode.FOURNISSEUR_NOT_FOUND, errors);
         }
-        Fournisseur fournisseur = modelMapper.map(fournisseurDto, Fournisseur.class);
+        Fournisseur fournisseur = FournisseurDto.toEntity(fournisseurDto) ;
         Fournisseur fournisseur1 = fournisseurRepo.save(fournisseur);
-        return modelMapper.map(fournisseur1, FournisseurDto.class);
+        return FournisseurDto.fromEntity(fournisseur1) ;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FournisseurServiceImpl implements FournisseurService {
         if (id == null)
             return null;
         Optional<Fournisseur> fournisseur = fournisseurRepo.findById(id);
-        return Optional.of(modelMapper.map(fournisseur, FournisseurDto.class)).orElseThrow(()
+        return Optional.of(FournisseurDto.fromEntity(fournisseur.get())).orElseThrow(()
                 -> new EntityNotFoundException("Fournisseur non trouvé"));
 
 

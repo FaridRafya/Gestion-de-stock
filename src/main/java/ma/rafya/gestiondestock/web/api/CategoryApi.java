@@ -9,6 +9,8 @@ import ma.rafya.gestiondestock.Dto.CategoryDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static ma.rafya.gestiondestock.Utils.Constant.APP_ROOT;
 
 @Api(APP_ROOT+"/categories")
@@ -45,7 +47,7 @@ public interface CategoryApi {
             @ApiResponse(code = 200 ,message = "la liste des categories"),
 
     })
-    CategoryDto findall();
+    List<CategoryDto> findall();
 
     @DeleteMapping(value = APP_ROOT+"article/deleteCategory/{id}")
     @ApiOperation(value = "supprimer  category" , notes = "cette methode permet de supprimer category ")

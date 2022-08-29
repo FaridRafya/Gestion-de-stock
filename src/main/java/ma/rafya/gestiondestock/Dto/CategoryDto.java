@@ -17,7 +17,7 @@ public class CategoryDto {
     private List<ArticleDto> articles  ;
 
 
-  /*  public CategoryDto fromEntity(Category category){
+    public static CategoryDto fromEntity(Category category){
 
         if(category == null)
             return null ;
@@ -28,12 +28,12 @@ public class CategoryDto {
                 .designation(category.getDesignation()).build()
                 ;
     }
-    public Category toEntity(CategoryDto cAtegoryDto){
+    public static  Category toEntity(CategoryDto cAtegoryDto){
         if(cAtegoryDto==null)
             return null;
     return Category.builder()
             .id(cAtegoryDto.getId())
             .codeCategory(cAtegoryDto.getCodeCategory())
             .designation(cAtegoryDto.getDesignation()).build() ;
-    }*/
+    }
 }

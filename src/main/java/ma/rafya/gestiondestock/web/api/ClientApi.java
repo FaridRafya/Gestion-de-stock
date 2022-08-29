@@ -5,6 +5,8 @@ import ma.rafya.gestiondestock.Dto.ClientDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static ma.rafya.gestiondestock.Utils.Constant.APP_ROOT;
 
 @Api(APP_ROOT+"/client")
@@ -18,7 +20,7 @@ public interface ClientApi {
     ClientDto findById(@PathVariable("id") Long id) ;
 
     @GetMapping(value =APP_ROOT+"/client/all" , produces =MediaType.APPLICATION_JSON_VALUE )
-    ClientDto findAll();
+   List<ClientDto>  findAll();
 
     @DeleteMapping(value = APP_ROOT+"client/deleteClient/{id}")
     void delete(@PathVariable("id") Long id) ;

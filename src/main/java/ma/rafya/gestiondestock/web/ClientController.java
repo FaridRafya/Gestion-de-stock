@@ -1,11 +1,12 @@
 package ma.rafya.gestiondestock.web;
 
-import io.swagger.annotations.Authorization;
 import ma.rafya.gestiondestock.Dto.ClientDto;
 import ma.rafya.gestiondestock.Service.ClientService;
 import ma.rafya.gestiondestock.web.api.ClientApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class ClientController implements ClientApi {
@@ -28,7 +29,7 @@ public class ClientController implements ClientApi {
     }
 
     @Override
-    public ClientDto findAll() {
+    public List<ClientDto> findAll() {
         return clientService.findAll();
     }
 

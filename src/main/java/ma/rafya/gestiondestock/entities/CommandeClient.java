@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data @Builder
-@NoArgsConstructor  @AllArgsConstructor  @Entity
+@NoArgsConstructor  @AllArgsConstructor  @Entity @EntityListeners(AuditingEntityListener.class)
+
 public class CommandeClient  implements Serializable {
 
     @Id

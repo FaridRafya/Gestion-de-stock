@@ -33,9 +33,10 @@ public class ClientServiceimpl implements ClientService {
         if (!errors.isEmpty()) {
             throw new InvalidEntityException("client est invalid", ErrorCode.CLIENT_NOT_FOUND, errors);
         }
-        Client client = modelMapper.map(clientDto, Client.class);
+        Client client = ClientDto.toEntity(clientDto) ;
+
         Client client1 = clientRepo.save(client);
-        return modelMapper.map(client1, ClientDto.class);
+        return ClientDto.fromEntity(client1) ;
     }
 
     @Override
@@ -43,14 +44,14 @@ public class ClientServiceimpl implements ClientService {
         if (id == null)
             return null;
         Optional<Client> client = clientRepo.findById(id);
-        return Optional.of(modelMapper.map(client, ClientDto.class)).orElseThrow(() ->
+        return Optional.of(ClientDto.fromEntity(client.get())).orElseThrow(() ->
                 new EntityNotFoundException("client n existe pas", ErrorCode.CLIENT_NOT_FOUND));
     }
 
     @Override
-    public ClientDto findAll() {
-        return (ClientDto) clientRepo.findAll().stream().map
-                (e -> modelMapper.map(e, ClientDto.class)).collect(Collectors.toList());
+    public List<ClientDto> findAll() {
+        return  clientRepo.findAll().stream().map
+                (ClientDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

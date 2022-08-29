@@ -3,6 +3,8 @@ package ma.rafya.gestiondestock.Service;
 import ma.rafya.gestiondestock.Dto.CategoryDto;
 import ma.rafya.gestiondestock.Dto.CommandeClientDto;
 
+import java.util.List;
+
 public interface CommandeClientService {
 
     CommandeClientDto save(CommandeClientDto commandeClientDto);
@@ -11,7 +13,7 @@ public interface CommandeClientService {
 
     CommandeClientDto findByCode(String code);
 
-    CommandeClientDto findAll();
+    List<CommandeClientDto>  findAll();
 
     void delete(Long id);
 }

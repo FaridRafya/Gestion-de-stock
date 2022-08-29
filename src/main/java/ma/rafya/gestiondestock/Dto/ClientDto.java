@@ -2,6 +2,7 @@ package ma.rafya.gestiondestock.Dto;
 
 import lombok.Builder;
 import lombok.Data;
+import ma.rafya.gestiondestock.entities.Client;
 import ma.rafya.gestiondestock.entities.CommandeClient;
 
 import javax.persistence.OneToMany;
@@ -20,4 +21,27 @@ public class ClientDto {
     private String telephone ;
 
     private List<CommandeClientDto> commandeClients ;
+
+
+
+    public static  ClientDto fromEntity(Client client){
+        return ClientDto.builder()
+                .id(client.getId())
+                .nom(client.getNom())
+                .prenom(client.getPrenom())
+                .adresse(client.getAdresse())
+                .photo(client.getPhoto())
+                .telephone(client.getTelephone())
+                .build() ;
+    }
+    public static  Client toEntity(ClientDto client){
+        return Client.builder()
+                .id(client.getId())
+                .nom(client.getNom())
+                .prenom(client.getPrenom())
+                .adresse(client.getAdresse())
+                .photo(client.getPhoto())
+                .telephone(client.getTelephone())
+                .build() ;
+    }
 }

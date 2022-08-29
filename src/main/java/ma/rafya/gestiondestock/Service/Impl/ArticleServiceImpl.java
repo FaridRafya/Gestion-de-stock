@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -34,20 +36,26 @@ public class ArticleServiceImpl implements ArticleService {
 
           throw new InvalidEntityException("article n'est pas valid" , ErrorCode.ARTIICLE_NOT_FOUND,errors);
         }
-        Article article =modelMapper.map(articleDto,Article.class) ;
+        /*Article article =modelMapper.map(articleDto,Article.class) ;
         Article article1= articleRepository.save(article) ;
-      return modelMapper.map(article1,ArticleDto.class) ;
+      return modelMapper.map(article1,ArticleDto.class) ;*/
+
+
+        ArticleDto dto = ArticleDto.fromEntity(articleRepository.save(ArticleDto.toEntity(articleDto)));
+        return dto;
     }
 
     @Override
     public ArticleDto findById(Long id) {
         if (id==null){
-            return  null ;
+            return  null ;  
         }
         Optional<Article> article=articleRepository.findById(id);
+
+
      //   ArticleDto articleDto=modelMapper.map(article,ArticleDto.class);
-        return  Optional.of( modelMapper.map(article,ArticleDto.class)).orElseThrow(()->
-                new EntityNotFoundException("aucun article trouvé avec id"));
+        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(()->
+                new EntityNotFoundException("aucun article avec id"+id));
     }
 
     @Override
@@ -55,13 +63,16 @@ public class ArticleServiceImpl implements ArticleService {
         if(!StringUtils.hasLength(code))
         return null;
         Optional<Article> article =articleRepository.findByCodeArticle(code) ;
-        return modelMapper.map(article,ArticleDto.class) ;
+        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(()->
+                new EntityNotFoundException("aucun article avec ce code"+code));
+
     }
 
     @Override
     public List<ArticleDto> findAll() {
-        return articleRepository.findAll().stream().map
-                (e->modelMapper.map(e,ArticleDto.class)).collect(Collectors.toList());
+
+        return  articleRepository.findAll().stream().map
+                (ArticleDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
